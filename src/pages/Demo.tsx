@@ -19,7 +19,8 @@ import {
   Smartphone,
   User,
   WifiOff,
-  Upload
+  Upload,
+  Zap
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -90,42 +91,68 @@ export default function Demo() {
     switch (currentStep) {
       case "welcome":
         return (
-          <div className="text-center space-y-6 py-8">
-            <div className="w-24 h-24 bg-blue-100 rounded-full flex items-center justify-center mx-auto">
-              <Shield className="h-12 w-12 text-blue-600" />
+          <div className="text-center space-y-8 py-12 px-6">
+            <div className="w-28 h-28 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-3xl flex items-center justify-center mx-auto shadow-2xl">
+              <Shield className="h-14 w-14 text-white" />
             </div>
-            <h2 className="text-2xl font-bold text-gray-900">BharatKYC में आपका स्वागत है</h2>
-            <h3 className="text-lg text-gray-600">Welcome to BharatKYC</h3>
-            <p className="text-gray-500 max-w-md mx-auto">
-              आपकी पहचान सत्यापित करने के लिए कृपया निर्देशों का पालन करें
-            </p>
-            <p className="text-sm text-gray-500 max-w-md mx-auto">
-              Please follow the instructions to verify your identity
-            </p>
             
-            <div className="flex items-center justify-center space-x-4">
+            <div className="space-y-3">
+              <h2 className="text-2xl font-bold text-gray-900">आपका स्वागत है</h2>
+              <h3 className="text-lg text-gray-700 font-medium">Welcome to BharatKYC</h3>
+              <div className="bg-blue-50 rounded-2xl p-4 mx-4">
+                <p className="text-sm text-blue-800 leading-relaxed">
+                  अपनी पहचान सत्यापित करने के लिए कृपया निर्देशों का पालन करें
+                </p>
+                <p className="text-xs text-blue-600 mt-2">
+                  Please follow the instructions to verify your identity
+                </p>
+              </div>
+            </div>
+            
+            <div className="space-y-4 px-2">
               <Button 
                 size="lg" 
-                className="bg-green-600 hover:bg-green-700 text-lg px-8"
+                className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white text-lg font-bold py-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300"
                 onClick={nextStep}
               >
+                <CheckCircle className="h-6 w-6 mr-3" />
                 शुरू करें / Start
               </Button>
+              
               <Button 
                 variant="outline" 
                 size="lg"
+                className="w-full py-4 rounded-2xl border-2 font-semibold"
                 onClick={() => setVoiceEnabled(!voiceEnabled)}
               >
-                <Volume2 className={`h-4 w-4 mr-2 ${voiceEnabled ? 'text-blue-600' : 'text-gray-400'}`} />
-                आवाज़ / Voice
+                <Volume2 className={`h-5 w-5 mr-3 ${voiceEnabled ? 'text-blue-600' : 'text-gray-400'}`} />
+                {voiceEnabled ? "🔊 आवाज़ चालू" : "🔇 आवाज़ बंद"} / Voice {voiceEnabled ? "On" : "Off"}
               </Button>
             </div>
 
+            {/* Progress Indicator */}
+            <div className="flex justify-center space-x-2 pt-6">
+              <div className="w-3 h-3 bg-blue-600 rounded-full shadow-sm"></div>
+              <div className="w-3 h-3 bg-gray-300 rounded-full"></div>
+              <div className="w-3 h-3 bg-gray-300 rounded-full"></div>
+              <div className="w-3 h-3 bg-gray-300 rounded-full"></div>
+              <div className="w-3 h-3 bg-gray-300 rounded-full"></div>
+              <div className="w-3 h-3 bg-gray-300 rounded-full"></div>
+            </div>
+
             {voiceEnabled && (
-              <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 max-w-md mx-auto">
-                <p className="text-sm text-blue-800">
-                  🔊 "नमस्ते! मैं आपकी केवाईसी प्रक्रिया में मदद करूंगा। शुरू करने के लिए हरे बटन पर क्लिक करें।"
-                </p>
+              <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border-l-4 border-blue-400 rounded-2xl p-4 mx-4 mt-6">
+                <div className="flex items-start space-x-3">
+                  <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0">
+                    <Volume2 className="h-4 w-4 text-white" />
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-sm font-medium text-blue-900 mb-1">AI सहायक सक्रिय / AI Assistant Active</p>
+                    <p className="text-xs text-blue-700 leading-relaxed">
+                      "नमस्ते! मैं आपकी केवाईसी प्रक्रिया में मदद करूंगा। शुरू करने के लिए हरे बटन पर क्लिक करें।"
+                    </p>
+                  </div>
+                </div>
               </div>
             )}
           </div>
@@ -133,43 +160,69 @@ export default function Demo() {
 
       case "language":
         return (
-          <div className="space-y-6 py-8">
+          <div className="space-y-8 py-8 px-6">
             <div className="text-center">
-              <Globe className="h-12 w-12 text-blue-600 mx-auto mb-4" />
+              <div className="w-20 h-20 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                <Globe className="h-10 w-10 text-white" />
+              </div>
               <h2 className="text-xl font-bold text-gray-900 mb-2">भाषा चुनें / Choose Language</h2>
-              <p className="text-gray-600">अपनी पसंदीदा भाषा का चयन करें</p>
+              <p className="text-gray-600 text-sm">अपनी पसंदीदा भाषा का चयन करें</p>
             </div>
             
             <div className="grid grid-cols-2 gap-4">
               {[
-                { code: "hindi", name: "हिंदी", flag: "🇮🇳" },
-                { code: "english", name: "English", flag: "🇬🇧" },
-                { code: "bengali", name: "বাংলা", flag: "🇮🇳" },
-                { code: "tamil", name: "தமிழ்", flag: "🇮🇳" }
+                { code: "hindi", name: "हिंदी", flag: "🇮🇳", subtitle: "Hindi" },
+                { code: "english", name: "English", flag: "🇬🇧", subtitle: "अंग्रेजी" },
+                { code: "bengali", name: "বাংলা", flag: "🇮🇳", subtitle: "Bengali" },
+                { code: "tamil", name: "தமிழ்", flag: "🇮🇳", subtitle: "Tamil" }
               ].map((lang) => (
                 <button
                   key={lang.code}
                   onClick={() => setSelectedLanguage(lang.code)}
-                  className={`p-4 border-2 rounded-lg text-center transition-all ${
+                  className={`p-6 border-2 rounded-2xl text-center transition-all duration-300 ${
                     selectedLanguage === lang.code 
-                      ? 'border-blue-500 bg-blue-50' 
-                      : 'border-gray-200 hover:border-gray-300'
+                      ? 'border-blue-500 bg-gradient-to-br from-blue-50 to-indigo-50 shadow-lg scale-105' 
+                      : 'border-gray-200 hover:border-gray-300 hover:shadow-md'
                   }`}
                 >
-                  <div className="text-2xl mb-2">{lang.flag}</div>
-                  <div className="font-medium">{lang.name}</div>
+                  <div className="text-3xl mb-3">{lang.flag}</div>
+                  <div className="font-bold text-lg text-gray-900">{lang.name}</div>
+                  <div className="text-xs text-gray-500 mt-1">{lang.subtitle}</div>
+                  {selectedLanguage === lang.code && (
+                    <div className="mt-3">
+                      <CheckCircle className="h-5 w-5 text-blue-600 mx-auto" />
+                    </div>
+                  )}
                 </button>
               ))}
             </div>
 
+            {/* Progress Indicator */}
+            <div className="flex justify-center space-x-2 pt-4">
+              <div className="w-3 h-3 bg-gray-300 rounded-full"></div>
+              <div className="w-3 h-3 bg-blue-600 rounded-full shadow-sm"></div>
+              <div className="w-3 h-3 bg-gray-300 rounded-full"></div>
+              <div className="w-3 h-3 bg-gray-300 rounded-full"></div>
+              <div className="w-3 h-3 bg-gray-300 rounded-full"></div>
+              <div className="w-3 h-3 bg-gray-300 rounded-full"></div>
+            </div>
+
             {voiceEnabled && selectedLanguage && (
-              <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
-                <p className="text-sm text-blue-800">
-                  🔊 {selectedLanguage === "hindi" 
-                    ? "अच्छा! अब आइए दस्तावेज़ का प्रकार चुनें।" 
-                    : "Great! Now let's choose the document type."
-                  }
-                </p>
+              <div className="bg-gradient-to-r from-green-50 to-emerald-50 border-l-4 border-green-400 rounded-2xl p-4">
+                <div className="flex items-start space-x-3">
+                  <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0">
+                    <Volume2 className="h-4 w-4 text-white" />
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-sm font-medium text-green-900 mb-1">भाषा चुनी गई / Language Selected</p>
+                    <p className="text-xs text-green-700 leading-relaxed">
+                      {selectedLanguage === "hindi" 
+                        ? "बहुत बढ़िया! अब आइए दस्तावेज़ का प्रकार चुनें।" 
+                        : "Excellent! Now let's choose the document type."
+                      }
+                    </p>
+                  </div>
+                </div>
               </div>
             )}
           </div>
@@ -326,13 +379,15 @@ export default function Demo() {
 
       case "document-capture":
         return (
-          <div className="space-y-6 py-8">
-            <div className="text-center">
-              <Camera className="h-12 w-12 text-purple-600 mx-auto mb-4" />
-              <h2 className="text-xl font-bold text-gray-900 mb-2">
+          <div className="space-y-6 py-6">
+            <div className="text-center px-6">
+              <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                <Camera className="h-8 w-8 text-white" />
+              </div>
+              <h2 className="text-lg font-bold text-gray-900 mb-2">
                 {selectedLanguage === "hindi" ? "दस्तावेज़ की फोटो लें" : "Capture Document"}
               </h2>
-              <p className="text-gray-600">
+              <p className="text-sm text-gray-600">
                 {selectedLanguage === "hindi" 
                   ? "अपने दस्तावेज़ को फ्रेम के अंदर रखें"
                   : "Position your document inside the frame"
@@ -341,11 +396,13 @@ export default function Demo() {
             </div>
 
             {/* Simulated Camera View */}
-            <div className="relative bg-gray-900 rounded-lg aspect-[4/3] flex items-center justify-center">
-              <div className="absolute inset-4 border-2 border-dashed border-white/50 rounded-lg flex items-center justify-center">
+            <div className="relative bg-gray-900 rounded-3xl mx-4 aspect-[4/3] overflow-hidden shadow-2xl">
+              <div className="absolute inset-6 border-3 border-dashed border-white/60 rounded-2xl flex items-center justify-center">
                 <div className="text-center text-white">
-                  <FileText className="h-16 w-16 mx-auto mb-2 opacity-50" />
-                  <p className="text-sm">
+                  <div className="w-20 h-20 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-3 backdrop-blur-sm">
+                    <FileText className="h-10 w-10 text-white/80" />
+                  </div>
+                  <p className="text-sm font-medium">
                     {selectedLanguage === "hindi" 
                       ? "दस्तावेज़ यहाँ रखें" 
                       : "Place document here"
@@ -354,48 +411,89 @@ export default function Demo() {
                 </div>
               </div>
               
-              {/* Live Feedback */}
-              <div className="absolute top-4 left-4 right-4 bg-black/70 text-white px-4 py-2 rounded-lg text-center">
-                <p className="text-sm">
-                  {selectedLanguage === "hindi" 
-                    ? "📍 दस्तावेज़ को और पास लाएं" 
-                    : "📍 Move document closer"
-                  }
-                </p>
+              {/* Live Feedback Banner */}
+              <div className="absolute top-4 left-4 right-4">
+                <div className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-3 rounded-2xl text-center shadow-lg">
+                  <div className="flex items-center justify-center space-x-2">
+                    <AlertCircle className="h-4 w-4" />
+                    <p className="text-sm font-semibold">
+                      {selectedLanguage === "hindi" 
+                        ? "दस्तावेज़ को और पास लाएं" 
+                        : "Move document closer"
+                      }
+                    </p>
+                  </div>
+                </div>
               </div>
               
+              {/* Corner Guides */}
+              <div className="absolute top-6 left-6 w-6 h-6 border-l-3 border-t-3 border-white rounded-tl-lg"></div>
+              <div className="absolute top-6 right-6 w-6 h-6 border-r-3 border-t-3 border-white rounded-tr-lg"></div>
+              <div className="absolute bottom-6 left-6 w-6 h-6 border-l-3 border-b-3 border-white rounded-bl-lg"></div>
+              <div className="absolute bottom-6 right-6 w-6 h-6 border-r-3 border-b-3 border-white rounded-br-lg"></div>
+              
               {/* Capture Button */}
-              <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2">
+              <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2">
                 <Button 
                   size="lg" 
-                  className="rounded-full w-16 h-16 bg-white hover:bg-gray-100 text-gray-900"
+                  className="w-20 h-20 rounded-full bg-white hover:bg-gray-100 text-gray-900 shadow-2xl border-4 border-white hover:scale-110 transition-all duration-300"
                   onClick={nextStep}
                 >
-                  <Camera className="h-6 w-6" />
+                  <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center">
+                    <Camera className="h-6 w-6 text-white" />
+                  </div>
                 </Button>
               </div>
             </div>
 
-            <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-              <h4 className="font-medium text-yellow-900 mb-2 flex items-center">
-                <AlertCircle className="h-4 w-4 mr-2" />
-                {selectedLanguage === "hindi" ? "सुझाव:" : "Tips:"}
-              </h4>
-              <ul className="text-sm text-yellow-800 space-y-1">
-                <li>• {selectedLanguage === "hindi" ? "अच्छी रोशनी में फोटो लें" : "Take photo in good lighting"}</li>
-                <li>• {selectedLanguage === "hindi" ? "फोन को स्थिर रखें" : "Keep phone steady"}</li>
-                <li>• {selectedLanguage === "hindi" ? "दस्तावेज़ को सीधा रखें" : "Keep document straight"}</li>
-              </ul>
+            {/* AI Tips */}
+            <div className="px-6">
+              <div className="bg-gradient-to-r from-amber-50 to-yellow-50 border-l-4 border-amber-400 rounded-2xl p-4">
+                <h4 className="font-semibold text-amber-900 mb-3 flex items-center">
+                  <Zap className="h-4 w-4 mr-2" />
+                  {selectedLanguage === "hindi" ? "AI सुझाव:" : "AI Tips:"}
+                </h4>
+                <div className="space-y-2">
+                  {[
+                    selectedLanguage === "hindi" ? "अच्छी रोशनी में फोटो लें" : "Take photo in good lighting",
+                    selectedLanguage === "hindi" ? "फोन को स्थिर रखें" : "Keep phone steady", 
+                    selectedLanguage === "hindi" ? "दस्तावेज़ को सीधा रखें" : "Keep document straight"
+                  ].map((tip, idx) => (
+                    <div key={idx} className="flex items-center space-x-2">
+                      <div className="w-2 h-2 bg-amber-500 rounded-full"></div>
+                      <p className="text-sm text-amber-800">{tip}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Progress Indicator */}
+            <div className="flex justify-center space-x-2 px-6">
+              <div className="w-3 h-3 bg-gray-300 rounded-full"></div>
+              <div className="w-3 h-3 bg-gray-300 rounded-full"></div>
+              <div className="w-3 h-3 bg-gray-300 rounded-full"></div>
+              <div className="w-3 h-3 bg-gray-300 rounded-full"></div>
+              <div className="w-3 h-3 bg-blue-600 rounded-full shadow-sm"></div>
+              <div className="w-3 h-3 bg-gray-300 rounded-full"></div>
             </div>
 
             {voiceEnabled && (
-              <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
-                <p className="text-sm text-blue-800">
-                  🔊 {selectedLanguage === "hindi" 
-                    ? "दस्तावेज़ को फ्रेम के अंदर रखें और स्पष्ट फोटो के लिए स्थिर रहें।" 
-                    : "Position the document inside the frame and stay steady for a clear photo."
-                  }
-                </p>
+              <div className="bg-gradient-to-r from-purple-50 to-indigo-50 border-l-4 border-purple-400 rounded-2xl p-4 mx-6">
+                <div className="flex items-start space-x-3">
+                  <div className="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center flex-shrink-0">
+                    <Volume2 className="h-4 w-4 text-white" />
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-sm font-medium text-purple-900 mb-1">लाइव गाइडेंस / Live Guidance</p>
+                    <p className="text-xs text-purple-700 leading-relaxed">
+                      {selectedLanguage === "hindi" 
+                        ? "दस्तावेज़ को फ्रेम के अंदर रखें और स्पष्ट फोटो के लिए स्थिर रहें।" 
+                        : "Position the document inside the frame and stay steady for a clear photo."
+                      }
+                    </p>
+                  </div>
+                </div>
               </div>
             )}
           </div>
@@ -696,51 +794,84 @@ export default function Demo() {
         </div>
 
         {/* Mobile Phone Mockup */}
-        <Card className="mx-auto max-w-md bg-gray-900 p-2 rounded-2xl shadow-2xl">
-          <div className="bg-white rounded-xl overflow-hidden">
-            {/* Phone Header */}
-            <div className="bg-gray-100 px-4 py-2 flex items-center justify-between text-xs">
-              <div className="flex items-center space-x-1">
-                <div className="w-1 h-1 bg-gray-400 rounded-full"></div>
-                <div className="w-1 h-1 bg-gray-400 rounded-full"></div>
-                <div className="w-1 h-1 bg-gray-400 rounded-full"></div>
-              </div>
-              <span className="font-medium">BharatKYC</span>
-              <div className="flex items-center space-x-1">
-                <div className="text-gray-600">100%</div>
-                <div className="w-6 h-3 border border-gray-400 rounded-sm">
-                  <div className="w-full h-full bg-green-500 rounded-sm"></div>
+        <Card className="mx-auto max-w-sm bg-gray-900 p-1.5 rounded-[2.5rem] shadow-2xl">
+          <div className="bg-white rounded-[2rem] overflow-hidden relative">
+            {/* Phone Screen - Standard iPhone 14 dimensions (393x852) scaled down */}
+            <div className="w-80 h-[690px] relative overflow-hidden">
+              {/* Dynamic Island */}
+              <div className="absolute top-2 left-1/2 transform -translate-x-1/2 w-32 h-7 bg-gray-900 rounded-full z-10"></div>
+              
+              {/* Status Bar */}
+              <div className="flex justify-between items-center px-6 py-4 pt-10 text-xs font-medium bg-white relative z-5">
+                <div className="flex items-center space-x-1">
+                  <div className="flex space-x-1">
+                    <div className="w-1 h-1 bg-gray-900 rounded-full"></div>
+                    <div className="w-1 h-1 bg-gray-900 rounded-full"></div>
+                    <div className="w-1 h-1 bg-gray-900 rounded-full"></div>
+                  </div>
                 </div>
+                <span className="font-semibold text-gray-900">9:41</span>
+                <div className="flex items-center space-x-1">
+                  <span className="text-xs text-gray-900">100%</span>
+                  <div className="w-6 h-3 border border-gray-900 rounded-sm">
+                    <div className="w-full h-full bg-green-500 rounded-sm"></div>
+                  </div>
+                </div>
+              </div>
+
+              {/* App Header */}
+              <div className="px-6 py-4 border-b bg-gradient-to-r from-blue-50 to-indigo-50 backdrop-blur-sm">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-lg flex items-center justify-center shadow-sm">
+                      <Shield className="h-4 w-4 text-white" />
+                    </div>
+                    <h1 className="text-lg font-bold text-gray-900">BharatKYC</h1>
+                  </div>
+                  {isOffline && (
+                    <div className="flex items-center text-orange-600 text-xs">
+                      <WifiOff className="h-3 w-3 mr-1" />
+                      Offline
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Main Content Area - Scrollable */}
+              <div className="flex-1 bg-gradient-to-br from-gray-50 to-blue-50 overflow-y-auto" style={{ height: 'calc(690px - 140px)' }}>
+                {renderCurrentStep()}
               </div>
             </div>
 
-            {/* App Content */}
-            <div className="min-h-[600px] bg-white">
-              {renderCurrentStep()}
-            </div>
+            {/* Home Indicator */}
+            <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gray-900 rounded-full"></div>
 
             {/* Navigation */}
             {currentStep !== "welcome" && currentStep !== "success" && currentStep !== "processing" && currentStep !== "error" && (
-              <div className="bg-gray-50 px-4 py-3 flex justify-between border-t">
-                <Button 
-                  variant="outline" 
-                  size="sm" 
-                  onClick={prevStep}
-                >
-                  <ArrowLeft className="h-4 w-4 mr-1" />
-                  {selectedLanguage === "hindi" ? "पीछे" : "Back"}
-                </Button>
-                <Button 
-                  size="sm" 
-                  onClick={nextStep}
-                  disabled={
-                    (currentStep === "document-type" && !selectedDocument) ||
-                    (currentStep === "language" && !selectedLanguage)
-                  }
-                >
-                  {selectedLanguage === "hindi" ? "आगे" : "Next"}
-                  <ArrowRight className="h-4 w-4 ml-1" />
-                </Button>
+              <div className="absolute bottom-8 left-0 right-0 bg-white/90 backdrop-blur-md px-4 py-3 border-t">
+                <div className="flex justify-between items-center">
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    onClick={prevStep}
+                    className="rounded-xl"
+                  >
+                    <ArrowLeft className="h-4 w-4 mr-1" />
+                    {selectedLanguage === "hindi" ? "पीछे" : "Back"}
+                  </Button>
+                  <Button 
+                    size="sm" 
+                    onClick={nextStep}
+                    className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-xl"
+                    disabled={
+                      (currentStep === "document-type" && !selectedDocument) ||
+                      (currentStep === "language" && !selectedLanguage)
+                    }
+                  >
+                    {selectedLanguage === "hindi" ? "आगे" : "Next"}
+                    <ArrowRight className="h-4 w-4 ml-1" />
+                  </Button>
+                </div>
               </div>
             )}
           </div>
